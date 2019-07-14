@@ -1,4 +1,4 @@
-### Recipe-Application-React
+# Recipe-Application-React
 
 A simple Recipe Webpage containing Recipe.
 
