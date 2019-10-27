@@ -8,6 +8,7 @@ class Recipe extends React.Component {
   state = {
     activeRecipe: []
   }
+  
   componentDidMount = async () => {
     const title = this.props.location.state.recipe;
     const req = await fetch(`https://cors-anywhere.herokuapp.com/http://food2fork.com/api/search?key=${API_KEY}&q=${title}`);
@@ -16,6 +17,7 @@ class Recipe extends React.Component {
     this.setState({ activeRecipe: res.recipes[0] });
     console.log(this.state.activeRecipe);
   }
+
   render() {
     const recipe = this.state.activeRecipe;
     return (

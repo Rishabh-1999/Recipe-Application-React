@@ -12,7 +12,7 @@ const Recipes = props => (
               <img 
                 className="recipe__box-img" 
                 src={recipe.image_url} 
-                alt={recipe.title}/>
+                alt={recipe.title} />
                 <div className="recipe__text">
                   <h5 className="recipes__title">
                     { recipe.title.length < 20 ? `${recipe.title}` : `${recipe.title.substring(0, 25)}...` }

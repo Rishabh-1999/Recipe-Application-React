@@ -7,9 +7,9 @@ import Recipes from "./components/Recipes";
 const API_KEY = "70efb30b418f4fe9a116d81ec5d482a3";
 
 class App extends Component {
-state = {
-  recipes: []
-}
+  state = {
+    recipes: []
+  }
 
   getRecipe = async (e) => {
     const recipeName = e.target.elements.recipeName.value;
@@ -25,6 +25,7 @@ state = {
     const recipes = JSON.parse(json);
     this.setState({ recipes });
   }
+
   componentDidUpdate = () => {
     const recipes = JSON.stringify(this.state.recipes);
     localStorage.setItem("recipes", recipes);
