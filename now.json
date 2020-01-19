@@ -1,0 +1,11 @@
+{
+  "name": "Recipe",
+  "alias": "recipe-ri.now.sh",
+  "version": 2,
+  "env": {
+    "REACT_APP_BASE_URL": "https://recipe-ri.now.sh/",
+    "REACT_APP_APIURL": "https://api.edamam.com",
+    "REACT_APP_APIID": "4629df7d",
+    "REACT_APP_APIKEY": "a04da6cfd96bad9e15d82c5ce59d012a"
+  }
+}
