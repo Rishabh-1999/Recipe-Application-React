@@ -4,7 +4,6 @@ import Form from "./components/Form";
 import Recipes from "./components/Recipes";
 import axios from "axios";
 
-const REACT_APP_BASE_URL = "https://recipe-ri.now.sh/";
 const REACT_APP_APIURL = "https://api.edamam.com";
 const REACT_APP_APIID = "4629df7d";
 const REACT_APP_APIKEY = "a04da6cfd96bad9e15d82c5ce59d012a";
