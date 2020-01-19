@@ -1,45 +1,64 @@
-import React,{ Component} from 'react';
-import './App.css';
-
+import React, { Component } from "react";
+import "./App.css";
 import Form from "./components/Form";
 import Recipes from "./components/Recipes";
-
-const API_KEY = "70efb30b418f4fe9a116d81ec5d482a3";
+import axios from "axios";
 
 class App extends Component {
   state = {
     recipes: []
-  }
+  };
 
-  getRecipe = async (e) => {
+  getRecipe = async e => {
     const recipeName = e.target.elements.recipeName.value;
     e.preventDefault();
-    const api_call = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${API_KEY}&q=${recipeName}&count=10`);
-    
-    const data =await api_call.json();
-    this.setState({ recipes : data.recipes });
-  }
+    axios
+      .get(
+        process.env.REACT_APP_APIURL +
+          `/search?app_id=` +
+          process.env.REACT_APP_APIID +
+          `&app_key=` +
+          process.env.REACT_APP_APIKEY +
+          `&q=${recipeName}`
+      )
+      .then(res => {
+        this.setState({ recipes: res.data.hits });
+      });
+  };
 
   componentDidMount = () => {
-    const json = localStorage.getItem("recipes");
-    const recipes = JSON.parse(json);
-    this.setState({ recipes });
-  }
+    if (this.state.recipes.length === 0) {
+      const json = localStorage.getItem("recipes");
+      if (json != null) {
+        const recipes = JSON.parse(json);
+        this.setState({ recipes });
+      } else {
+        axios
+          .get(
+            process.env.REACT_APP_APIURL +
+              `/search?app_id=` +
+              process.env.REACT_APP_APIID +
+              `&app_key=` +
+              process.env.REACT_APP_APIKEY +
+              `&q=pizza`
+          )
+          .then(res => {
+            this.setState({ recipes: res.data.hits });
+            localStorage.setItem("recipes", JSON.stringify(this.state.recipes));
+          });
+      }
+    }
+  };
 
-  componentDidUpdate = () => {
-    const recipes = JSON.stringify(this.state.recipes);
-    localStorage.setItem("recipes", recipes);
-  }
-
-  render () {
+  render() {
     return (
-    <div className="App">
+      <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Recipe Search</h1>
+          <h1 className="App-title"> Recipe Search </h1>
         </header>
-        <Form getRecipe={this.getRecipe}/>
-        <Recipes recipes={this.state.recipes}/>
-    </div>
+        <Form getRecipe={this.getRecipe} />
+        <Recipes recipes={this.state.recipes} />
+      </div>
     );
   }
 }
